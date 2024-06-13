@@ -1,0 +1,58 @@
+ import React, { useEffect, useState }  from "react";
+
+ import axios from "axios";
+
+ function app(){
+  let [id,setid]=useState(0);
+  let [todo,settodo]=useState([]);
+
+  useEffect(()=>{
+    axios.get(`https://sum-server.100xdevs.com/todos`).then((response)=>{
+      settodo(response.data.todos)
+      console.log(response)
+      console.log(response.data.todos[id]);
+    })
+  },[])
+
+ 
+return (
+  <>
+  <button onClick={()=>{
+    setid(0)
+    console.log(`clicked 0`)
+  }}>0</button>
+  <button onClick={()=>{
+    setid(1)
+  }}>1</button>
+  <button onClick={()=>{
+    setid(2)
+  }}>2</button>
+  <button onClick={()=>{
+    setid(3)
+  }}>3</button>
+  <button onClick={()=>{
+    setid(4)
+  }}>4</button>
+
+{todo.length > 0 && todo[id] ? (
+        <Title title={todo[id].title} description={todo[id].description} />
+      ) : (
+        <p>Todo not available</p>
+      )}</>
+)
+
+
+
+ }
+ function Title({title,description}){
+  return (
+    <>
+    <h1>{title}</h1>
+    <h2>{description}</h2></>
+  )
+ }
+
+
+  
+
+ export default app;
